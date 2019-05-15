@@ -1,0 +1,1089 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <style type="text/css" rel="stylesheet">
+        .flex-vertical-middel { -webkit-box-pack: center; -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; }
+
+        .tickcheck { display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -webkit-align-items: center; -ms-flex-align: center; align-items: center; margin: 0 auto; }
+
+            .tickcheck span { font-weight: 700; color: #305496; line-height: 4rem; }
+
+            .tickcheck img { display: inline-block; height: 4rem; margin: 1rem 0 1rem 1rem; }
+
+        .gray-text { color: #999 !important; }
+
+        ion-header .bar-buttons button { color: #fff; border: 1px solid #fff; height: 42px; padding: 0 1rem; }
+
+        ion-content .hide-pdf { height: calc(100vh - 60px); width: calc(100vw); position: absolute; background: #fff; z-index: 1000; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-align: center; -webkit-align-items: center; -ms-flex-align: center; align-items: center; justify-items: center; -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; -ms-flex-direction: column; flex-direction: column; display: none; }
+
+            ion-content .hide-pdf ion-icon { font-size: 10rem; color: #488aff; -webkit-animation: none; animation: none; margin-top: 3rem; }
+
+        ion-content.creating-pdf .hide-pdf { display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; }
+
+            ion-content.creating-pdf .hide-pdf svg { width: 6in; }
+
+            ion-content.creating-pdf .hide-pdf ion-icon { -webkit-animation: rotation .5s infinite linear; animation: rotation .5s infinite linear; }
+
+        kendo-pdf-export img { margin: auto; }
+
+        kendo-pdf-export span svg + img,
+        kendo-pdf-export div svg + img { display: none; }
+
+        kendo-pdf-export summary-header { display: none; }
+
+        kendo-pdf-export.print .table-container,
+        kendo-pdf-export.print .result-chart { margin-top: 5cm; }
+
+        kendo-pdf-export.print ion-icon { display: none !important; }
+
+        kendo-pdf-export.print summary-header { display: block; }
+
+        kendo-pdf-export.print span svg,
+        kendo-pdf-export.print div svg { display: none !important; }
+
+            kendo-pdf-export.print span svg + img,
+            kendo-pdf-export.print div svg + img { display: block; }
+
+        ion-grid[chart] { margin: 3rem auto 0; }
+
+        ion-grid[legend] ion-title[text-left] { margin: 2rem 0 1rem; }
+
+            ion-grid[legend] ion-title[text-left] div.toolbar-title { text-align: left !important; }
+
+        ion-grid[legend] ion-row { margin: 2rem 0; }
+
+            ion-grid[legend] ion-row > ion-col[col-1] { text-align: right !important; padding: 0; }
+
+                ion-grid[legend] ion-row > ion-col[col-1] svg { height: 1.3rem !important; }
+
+            ion-grid[legend] ion-row ion-col[col-11] { line-height: 1.9rem; padding: 0 0 0 .5rem; font-size: .8rem; }
+
+        .row.legend { font-size: .8rem; color: #666; }
+
+            .row.legend ion-col { line-height: 20px; }
+
+            .row.legend img { opacity: .6; float: left; margin: 0 .25rem 0 0; width: 16px; }
+
+        [advise-picture] > svg { width: 75%; }
+
+        [advise-picture] > img { width: 35%; }
+
+        [advise-picture].legend > svg { width: 3rem; float: left; }
+
+            [advise-picture].legend > svg * { fill: #aaa; }
+
+        [advise-picture].legend + strong { color: #aaa; line-height: 3rem; margin-left: .5rem; }
+
+        .scroll-content { overflow: auto; padding: 0 1rem 1rem; }
+
+        .table-container { width: 100%; overflow: auto; padding: 0 0 1rem; }
+
+        table.data { margin: auto; width: 1160px; border-spacing: 0; border-collapse: separate; font-size: 1rem; background: #fff; margin-top: 0; }
+
+        @media (max-width: 575px) {
+            table.data { width: 1160px; }
+        }
+
+        @media (max-width: 575px) {
+            table.data { font-size: .9rem; }
+        }
+
+        table.data tbody > tr:nth-child(1) td:not([rowspan]) { background: #efefef; }
+
+        table.data tbody > tr:nth-child(2) td { background: #fff; }
+
+        table.data tbody > tr:nth-child(3) td:not([rowspan]) { background: #efefef; }
+
+        table.data tr td[double-border] { border-bottom: solid 1px #333; }
+
+        table.data tr.disabled td.c-red,
+        table.data tr.disabled td.c-gree { color: #aaa !important; }
+
+        table.data tr.text-center th,
+        table.data tr.text-center td { text-align: center; font-weight: 600 !important; }
+
+        table.data th { background: #fff; font-weight: 500; padding: .3rem; white-space: nowrap; }
+
+            table.data th svg { fill: #fff; width: 60%; display: block; margin: auto auto .5rem; }
+
+            table.data th.bg-green { background-color: #70ad47; color: #fff; }
+
+            table.data th.bg-green-light { background-color: #c2e0b4; color: #000; }
+
+            table.data th.bg-red { background-color: #ed7d31; color: #fff; border: 5px solid #fff; border-top: 0; }
+
+            table.data th.bg-blue { background-color: #0070c0; color: #fff; border-left: 5px solid #fff; border-right: 5px solid #fff; border-bottom: 5px solid #fff; }
+
+            table.data th.bg-blue-light { background-color: #ddebf7; border-right: 5px solid #fff; border-left: 5px solid #fff; color: #000; }
+
+            table.data th.bg-gray { background-color: #bfbfbf; color: #fff; border-left: 5px solid #fff; border-right: 5px solid #fff; border-bottom: 5px solid #fff; }
+
+            table.data th.vertical div { height: 6rem; padding: .5rem .25rem; width: 3rem; display: block; }
+
+                table.data th.vertical div span { -webkit-transform: rotate(-90deg); transform: rotate(-90deg); display: block; text-align: left; white-space: nowrap; width: 6rem; min-height: 3rem; margin-left: -1.2rem; margin-top: 1rem; font-size: .9rem; }
+
+                    table.data th.vertical div span[one-line] { margin-left: -12px; }
+
+        table.data td { background: #fff; padding: .25rem; font-weight: 600; vertical-align: middle; }
+
+            table.data td.mesure { white-space: nowrap; }
+
+            table.data td.b-right { border-right: 1px solid #444; }
+
+            table.data td a { text-decoration: underline; display: block; color: #444; text-decoration: none; }
+
+                table.data td a:not(:last-child) { margin-bottom: .5rem; }
+
+            table.data td.c-red { color: red; }
+
+                table.data td.c-red.bg-light-red { background-color: #fdf1e7; }
+
+            table.data td.c-gree { color: #375623; }
+
+            table.data td.bg-red { background: #fce4d6; border-left: 5px solid #fff; border-right: 5px solid #fff; }
+
+            table.data td.bg-blue { background: #bdd7ee; border-left: 5px solid #fff; border-right: 5px solid #fff; }
+
+            table.data td.bg-gray { background: #f2f2f2; border-left: 5px solid #fff; border-right: 5px solid #fff; }
+
+        table.data tbody > tr > td.bg-green { background: #e2efda; }
+
+        table.data tfoot td { font-weight: 600; background: #fff; }
+
+            table.data tfoot td.bg-green { background: #e2efda; }
+
+        table.total { display: inline-block; border-spacing: 1rem; border-collapse: separate; border: 2px solid red; margin: 1rem; background: #fdf1e7; }
+
+            table.total td { font-size: 1.2rem; text-align: left; color: red; }
+
+            table.total.green { border-color: #548235; background: #f2f2f2; }
+
+                table.total.green td { color: #548235; }
+
+    </style>
+    <title></title>
+</head>
+<body>
+    <page-summary>
+        <table border="0" class="data">
+
+            <colgroup>
+
+                <col style="width: 50px">
+                <col style="width: 100px">
+                <col style="width: 70px">
+                <col style="width: 70px">
+                <col style="width: 70px">
+                <col style="width: 10px">
+                <col style="width: 70px">
+                <col style="width: 70px">
+                <col style="width: 10px">
+                <col style="width: 100px">
+
+                <col style="width: 100px">
+
+                <col style="width: 100px">
+
+                <col style="width: 80px">
+
+                <col style="width: 50px">
+
+                <col style="width: 50px">
+
+                <col style="width: 10px">
+
+                <col style="width: 30px">
+
+                <col style="width: 30px">
+
+                <col style="width: 30px">
+
+                <col style="width: 30px">
+
+                <col style="width: 30px">
+
+            </colgroup>
+
+            <thead>
+
+                <tr>
+
+                    <th colspan="2"></th>
+
+                    <th colspan="6" style="border: 2px solid #fff; color:#fff; border-width: 0 2px 4px 0; background-color: rgb(112,173,71)">
+
+                        Energy
+
+                        &amp; CO2 analysis per year
+                    </th>
+
+                    <th rowspan="2"></th>
+
+                    <th rowspan="2" style="background-color: rgb(48,84,150); border: 2px solid #fff; color:#fff; border-width: 0 2px 4px 2px">
+
+
+
+                        Safety
+                    </th>
+
+                    <th rowspan="2" style="background-color: rgb(48,84,150); border: 2px solid #fff; color:#fff; border-width: 0 2px 4px 2px">
+
+
+
+                        Maintenance
+                    </th>
+
+                    <th rowspan="2" style="background-color: rgb(48,84,150); border: 2px solid #fff; color:#fff; border-width: 0 2px 4px 2px">
+
+
+
+                        Other
+                    </th>
+
+                    <th rowspan="2" style="background-color: rgb(48,84,150); border: 2px solid #fff; color:#fff; border-width: 0 2px 4px 2px">
+
+                        TBI Advice
+                    </th>
+
+                    <th colspan="2" rowspan="2" style="background-color: rgb(48,84,150); border: 2px solid #fff; color:#fff; border-width: 0 2px 4px 2px">
+
+                        Validation
+                    </th>
+
+                    <th rowspan="2"></th>
+
+                    <th colspan="5" style="background-color: rgb(48,84,150); border: 2px solid #fff; color:#fff; border-width: 0 0 4px 2px">
+
+                        Input
+                    </th>
+
+                </tr>
+
+                <tr>
+
+                    <th colspan="2">Component / Location</th>
+
+                    <th colspan="2" style="background-color:rgb(217,217,217); border: 2px solid #fff; border-width: 0 2px 4px 0">
+                        Current
+
+                        Losses<br>&amp; Emissions
+                    </th>
+
+                    <th colspan="4" style="background-color:rgb(217,217,217); border: 2px solid #fff; border-width: 0 2px 4px 2px">
+
+                        Potential<br>savings
+
+                        year
+                    </th>
+
+                    <th class="vertical">
+
+                        <div><span one-line="">Insulated</span></div>
+
+                    </th>
+
+                    <th class="vertical">
+
+                        <div><span one-line="">Surface (m<sup>2</sup>)</span></div>
+
+                    </th>
+
+                    <th class="vertical">
+
+                        <div><span one-line="">Diameter</span></div>
+
+                    </th>
+
+                    <th class="vertical">
+
+                        <div><span one-line="">Length</span></div>
+
+                    </th>
+
+                    <th class="vertical">
+
+                        <div><span one-line="">Items number</span></div>
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <!--bindings={
+          "ng-reflect-ng-for-of": "[object Object],[object Object"
+        }-->
+            <tbody>
+
+                <tr>
+
+                    <td double-border="" rowspan="3" style="white-space: nowrap; padding-right: 1rem" text-center="">
+
+                        <ion-icon name="md-more" role="img" slot="icon-only" style="margin: 0 .25rem 0; float: left" class="icon icon-md ion-md-more" aria-label="more" ng-reflect-name="md-more"></ion-icon>
+
+                        1-
+
+                    </td>
+
+                    <td double-border="" rowspan="3" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Fire Protection</td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td colspan="6" double-border="" nowrap="" rowspan="3" text-center="">Not considered &gt;</td>
+
+                    <td nowrap="" rowspan="3"></td>
+
+                    <td double-border="" nowrap="" rowspan="3" style="background: rgb(180,198,231)" text-center="">
+
+                        <!--bindings={
+                      "ng-reflect-ng-for-of": "[object Object]"
+                    }-->
+                        <!---->
+                        <!--bindings={
+                      "ng-reflect-ng-if": "true"
+                    }-->
+                        <a href="#">Fire Protect</a>
+
+                        <!--bindings={
+                      "ng-reflect-ng-if": "false"
+                    }-->
+
+
+
+                        <ion-icon name="md-add-circle" role="img" class="icon icon-md ion-md-add-circle" aria-label="add circle" ng-reflect-name="md-add-circle"></ion-icon>
+
+                    </td>
+
+                    <td double-border="" rowspan="3" style="background: rgb(217,225,242)" text-center="">
+
+                        <!--bindings={
+                      "ng-reflect-ng-for-of": ""
+                    }-->
+
+                        <ion-icon name="md-add-circle" role="img" class="icon icon-md ion-md-add-circle" aria-label="add circle" ng-reflect-name="md-add-circle"></ion-icon>
+
+                    </td>
+
+                    <td double-border="" rowspan="3" style="background: rgb(231,235,247)" text-center="">
+
+                        <!--bindings={
+                      "ng-reflect-ng-for-of": ""
+                    }-->
+                        <!--bindings={
+                      "ng-reflect-ng-if": "false"
+                    }-->
+
+                        <ion-icon name="md-add-circle" role="img" class="icon icon-md ion-md-add-circle" aria-label="add circle" ng-reflect-name="md-add-circle"></ion-icon>
+
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td double-border="" nowrap="" rowspan="3" style="background: #fff"></td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td double-border="" nowrap="" rowspan="3" style="background: #fff"></td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+
+                    <td double-border="" nowrap="" rowspan="3"></td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td double-border="" nowrap="" rowspan="3" text-center=""></td>
+
+                    <td double-border="" nowrap="" rowspan="3" text-center=""></td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td double-border="" nowrap="" rowspan="3" text-center="">&nbsp;</td>
+
+                    <td double-border="" nowrap="" rowspan="3" text-center="">
+
+
+
+                        <span></span>
+
+                    </td>
+
+                    <td double-border="" rowspan="3" text-center=""></td>
+
+                    <td double-border="" rowspan="3" text-center=""></td>
+
+                </tr>
+
+
+
+                <!--bindings={
+              "ng-reflect-ng-if": "false"
+            }-->
+                <!--bindings={
+              "ng-reflect-ng-if": "false"
+            }-->
+
+            </tbody>
+            <tbody>
+
+                <tr>
+
+                    <td double-border="" rowspan="3" style="white-space: nowrap; padding-right: 1rem" text-center="">
+
+                        <ion-icon name="md-more" role="img" slot="icon-only" style="margin: 0 .25rem 0; float: left" class="icon icon-md ion-md-more" aria-label="more" ng-reflect-name="md-more"></ion-icon>
+
+                        2-
+
+                    </td>
+
+                    <td double-border="" rowspan="3" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">UPipe</td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td nowrap="" text-right="">7.98</td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td nowrap="">
+                        MWh
+                        <!--bindings={
+                      "ng-reflect-ng-if": "false"
+                    }-->
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td nowrap="" text-right="">6.69</td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td class="p-0" nowrap="" style="padding: 0; white-space: nowrap" text-center="">
+
+
+
+                        --
+
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td nowrap="" text-left="">7.60</td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td class="mesure" nowrap="">
+
+                        MWh
+                        <!--bindings={
+                      "ng-reflect-ng-if": "false"
+                    }-->
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+
+                    <td nowrap="" rowspan="3"></td>
+
+                    <td double-border="" nowrap="" rowspan="3" style="background: rgb(180,198,231)" text-center="">
+
+                        <!--bindings={
+                      "ng-reflect-ng-for-of": "[object Object]"
+                    }-->
+                        <!---->
+                        <!--bindings={
+                      "ng-reflect-ng-if": "false"
+                    }-->
+                        <!--bindings={
+                      "ng-reflect-ng-if": "true"
+                    }-->
+                        <a href="#">Hot surface</a>
+
+
+
+                        <ion-icon name="md-add-circle" role="img" class="icon icon-md ion-md-add-circle" aria-label="add circle" ng-reflect-name="md-add-circle"></ion-icon>
+
+                    </td>
+
+                    <td double-border="" rowspan="3" style="background: rgb(217,225,242)" text-center="">
+
+                        <!--bindings={
+                      "ng-reflect-ng-for-of": ""
+                    }-->
+
+                        <ion-icon name="md-add-circle" role="img" class="icon icon-md ion-md-add-circle" aria-label="add circle" ng-reflect-name="md-add-circle"></ion-icon>
+
+                    </td>
+
+                    <td double-border="" rowspan="3" style="background: rgb(231,235,247)" text-center="">
+
+                        <!--bindings={
+                      "ng-reflect-ng-for-of": ""
+                    }-->
+                        <!--bindings={
+                      "ng-reflect-ng-if": "false"
+                    }-->
+
+                        <ion-icon name="md-add-circle" role="img" class="icon icon-md ion-md-add-circle" aria-label="add circle" ng-reflect-name="md-add-circle"></ion-icon>
+
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td double-border="" rowspan="3" text-center="">
+
+                        <!--bindings={
+                      "ng-reflect-ng-switch": "Recommended"
+                    }-->
+                        <!--bindings={
+                      "ng-reflect-ng-switch-case": "Recommended"
+                    }-->
+                        <span advise-picture=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAEYAAABGAEgTm+IAAAD3ElEQVRoge2ZsZLbNhCGP9y4P5bpzDJNJqrTiO4zY/kJTnmCKE9g+QmsN4j8BJHLVKaeIHddSrpLkxnmCTYFFgJEUiQAyY5yo38GwxMJYvcHdpe7e0ZEeA64+68VuBRuRK4NNyLXhhfnLmCMKYAFMNORgxrYichjtiIikj2AFdACcqFRA7MsXTIJFMBOhbfABqiC5xWwDZ4vJ9ZaKInJ+ZcmUgc7WIzMmwGPOndSOWAZnHASmRwSGxW0TTg9R2bSbJR8qyPazFJJVKrQ49hJnCDTAk3Me2pqAjzGyjD6InCIQGORZw3MgV+UzBBaGYg+xpgF8BvwTkTWIzLc/C3wALzDmvC4nBP2ee5osc5edHa61udlwimOydkcnYgxZgb8AfyDjUYPyvONLpaCGdY05sBnYOF2zhizBH5NXA9gT/9UVsA98EpEakdkB7w+3DRmBbwHPojIMkNwqPRnLLkyUGYTuYxTtmeOwebvRaRCBfSiENYx29So1lljpWvvSIxE+O/QyegYzJkZFfYeb0aVCl4CPwNvRGQXuYM9GGNqrJnBcZCYYf1gCJW+M2oRYQABy6rFn4xz1h/17/WZp7IkL2DUkesLUL/Af33XSvQD1tm/C3YnGyKyNcY0A48Gw3QG9thDsLuO9YkmZIl+xM45kS89VE8J65GXePvd40/q5QV27UuiBl9Y/alXR6TFhr3/DRyRbzr3L2G7XxWOyF+d++VX1uNsuFL3W726hLG8pBBjTBWsX+g4lZyWDPvl4Qs+hLBmd6mEE+gc/ilW4SFoRv1pZMoTx/lcoyPEnNOowBLZ648aeDDGrLGO/rsukJo0drHQ60d8jrXD1hrV1MtBTtWcmFIA+zusY8/xH8S32Cz4b/1dJ6ndx1KvaxGpVaF74gOKs5LmxPPvgeYOr2gFvMLmLRXwg96vyYT6xhxr307xSq+xRNz8nh6aa4E94UMBUwdfS3cvO/vVNRpsllANZKyTxZXOP6kHPqsuuouvOr+zEkbdRddw2AT3CxJqcXzt3kvl8f2DtYivEN3u3WP9w33VuxElBgXWbqGThmsgeQv8JCLbqYWCEuAjfVNc6bUUkTZkOMPX1OfW6zsCc+qaK3GdlCpCzqFISzWZLYEJJr67SXkXb5pV1PxEZUpymmeJfapgw3bRMjJ21ikVRYbjzmEZMd/V+WlNwFQiKmwZkFlEKDVJmn5jPKkrf9RpTIG2ezbYCPek5hA2Flb45G+sM1liHXsRrFWJSFq0zDmRjs9suUx3siHj3wlnn0iIiJ7xFM5uRFyEyDXg2fwz9Ebk2nAjcm24Ebk2PBsi/wKPyibQO6uoPgAAAABJRU5ErkJggg=="></span>
+
+                        <!--bindings={
+                      "ng-reflect-ng-switch-case": "Maintenance"
+                    }-->
+                        <!--bindings={
+                      "ng-reflect-ng-switch-case": "Unknow surface"
+                    }-->
+                        <!--bindings={
+                      "ng-reflect-ng-switch-case": "SAVINGS-achieved"
+                    }-->
+
+
+
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td double-border="" nowrap="" rowspan="3" style="background: #fff"></td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td double-border="" nowrap="" rowspan="3" style="background: #fff"></td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+
+                    <td double-border="" nowrap="" rowspan="3"></td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+
+                    <td double-border="" nowrap="" rowspan="3" text-center="">N</td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td double-border="" nowrap="" rowspan="3" text-center=""></td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+
+                    <td double-border="" nowrap="" rowspan="3" text-center="">
+
+
+
+                        <span>150</span>
+
+                    </td>
+
+                    <td double-border="" rowspan="3" text-center="">1</td>
+
+                    <td double-border="" rowspan="3" text-center=""></td>
+
+                </tr>
+
+
+
+                <!--bindings={
+              "ng-reflect-ng-if": "true"
+            }-->
+                <tr>
+
+                    <td nowrap="" text-right="">399</td>
+
+                    <td class="mesure" nowrap="">
+                        €
+                        <!--bindings={
+                      "ng-reflect-ng-if": "false"
+                    }-->
+                    </td>
+
+                    <td nowrap="" text-right="">335</td>
+
+                    <td class="p-0" nowrap="" style="padding: 0; white-space: nowrap;" text-center="">--</td>
+
+                    <td nowrap="" text-left="">380</td>
+
+                    <td class="mesure" nowrap="">
+                        €
+                        <!--bindings={
+                      "ng-reflect-ng-if": "false"
+                    }-->
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+
+                </tr>
+
+
+
+                <!--bindings={
+              "ng-reflect-ng-if": "true"
+            }-->
+                <tr>
+
+                    <td double-border="" nowrap="" text-right="">1.60</td>
+
+                    <td class="mesure" double-border="" nowrap="">
+                        tn CO<sub>2</sub>
+                        <!--bindings={
+                      "ng-reflect-ng-if": "false"
+                    }-->
+                    </td>
+
+                    <td double-border="" nowrap="" text-right="">1.34</td>
+
+                    <td class="p-0" double-border="" nowrap="" style="padding: 0; white-space: nowrap;" text-center="">--</td>
+
+                    <td double-border="" nowrap="" text-left="">1.52</td>
+
+                    <td class="mesure" double-border="" nowrap="">
+                        tn CO<sub>2</sub>
+                        <!--bindings={
+                      "ng-reflect-ng-if": "false"
+                    }-->
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+
+                </tr>
+
+            </tbody>
+            <tbody>
+
+                <tr class="disabled">
+
+                    <td double-border="" rowspan="3" style="white-space: nowrap; padding-right: 1rem" text-center="">
+
+                        <ion-icon name="md-more" role="img" slot="icon-only" style="margin: 0 .25rem 0; float: left" class="icon icon-md ion-md-more" aria-label="more" ng-reflect-name="md-more"></ion-icon>
+
+                        3-
+
+                    </td>
+
+                    <td double-border="" rowspan="3" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">USurface</td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td nowrap="" text-right="" class="gray-text">0.18</td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td nowrap="" class="gray-text">
+                        MWh
+                        <!--bindings={
+                      "ng-reflect-ng-if": "true"
+                    }-->
+                        <span>/m<sup>2</sup></span>
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td nowrap="" text-right="" class="gray-text">0.11</td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td class="p-0 gray-text" nowrap="" style="padding: 0; white-space: nowrap" text-center="">
+
+
+
+                        --
+
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td nowrap="" text-left="" class="gray-text">0.16</td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td class="mesure gray-text" nowrap="">
+
+                        MWh
+                        <!--bindings={
+                      "ng-reflect-ng-if": "true"
+                    }-->
+                        <span>/m<sup>2</sup></span>
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+
+                    <td nowrap="" rowspan="3"></td>
+
+                    <td double-border="" nowrap="" rowspan="3" style="background: rgb(180,198,231)" text-center="">
+
+                        <!--bindings={
+                      "ng-reflect-ng-for-of": ""
+                    }-->
+
+                        <ion-icon name="md-add-circle" role="img" class="icon icon-md ion-md-add-circle" aria-label="add circle" ng-reflect-name="md-add-circle"></ion-icon>
+
+                    </td>
+
+                    <td double-border="" rowspan="3" style="background: rgb(217,225,242)" text-center="">
+
+                        <!--bindings={
+                      "ng-reflect-ng-for-of": ""
+                    }-->
+
+                        <ion-icon name="md-add-circle" role="img" class="icon icon-md ion-md-add-circle" aria-label="add circle" ng-reflect-name="md-add-circle"></ion-icon>
+
+                    </td>
+
+                    <td double-border="" rowspan="3" style="background: rgb(231,235,247)" text-center="">
+
+                        <!--bindings={
+                      "ng-reflect-ng-for-of": ""
+                    }-->
+                        <!--bindings={
+                      "ng-reflect-ng-if": "false"
+                    }-->
+
+                        <ion-icon name="md-add-circle" role="img" class="icon icon-md ion-md-add-circle" aria-label="add circle" ng-reflect-name="md-add-circle"></ion-icon>
+
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td double-border="" rowspan="3" text-center="">
+
+                        <!--bindings={
+                      "ng-reflect-ng-switch": "OK"
+                    }-->
+                        <!--bindings={
+                      "ng-reflect-ng-switch-case": "Recommended"
+                    }-->
+                        <!--bindings={
+                      "ng-reflect-ng-switch-case": "Maintenance"
+                    }-->
+                        <!--bindings={
+                      "ng-reflect-ng-switch-case": "Unknow surface"
+                    }-->
+                        <!--bindings={
+                      "ng-reflect-ng-switch-case": "SAVINGS-achieved"
+                    }-->
+
+
+
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td double-border="" nowrap="" rowspan="3" style="background: #fff"></td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td double-border="" nowrap="" rowspan="3" style="background: #fff"></td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+
+                    <td double-border="" nowrap="" rowspan="3"></td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+
+                    <td double-border="" nowrap="" rowspan="3" text-center="">N</td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "true"
+                }-->
+                    <td double-border="" nowrap="" rowspan="3" text-center=""></td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+
+                    <td double-border="" nowrap="" rowspan="3" text-center="">
+
+
+
+                        <span></span>
+
+                    </td>
+
+                    <td double-border="" rowspan="3" text-center=""></td>
+
+                    <td double-border="" rowspan="3" text-center=""></td>
+
+                </tr>
+
+
+
+                <!--bindings={
+              "ng-reflect-ng-if": "true"
+            }-->
+                <tr class="gray-text disabled">
+
+                    <td nowrap="" text-right="">9</td>
+
+                    <td class="mesure" nowrap="">
+                        €
+                        <!--bindings={
+                      "ng-reflect-ng-if": "true"
+                    }-->
+                        <span>/m<sup>2</sup></span>
+                    </td>
+
+                    <td nowrap="" text-right="">6</td>
+
+                    <td class="p-0" nowrap="" style="padding: 0; white-space: nowrap;" text-center="">--</td>
+
+                    <td nowrap="" text-left="">8</td>
+
+                    <td class="mesure" nowrap="">
+                        €
+                        <!--bindings={
+                      "ng-reflect-ng-if": "true"
+                    }-->
+                        <span>/m<sup>2</sup></span>
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+
+                </tr>
+
+
+
+                <!--bindings={
+              "ng-reflect-ng-if": "true"
+            }-->
+                <tr class="gray-text disabled">
+
+                    <td double-border="" nowrap="" text-right="">0.04</td>
+
+                    <td class="mesure" double-border="" nowrap="">
+                        tn CO<sub>2</sub>
+                        <!--bindings={
+                      "ng-reflect-ng-if": "true"
+                    }-->
+                        <span>/m<sup>2</sup></span>
+                    </td>
+
+                    <td double-border="" nowrap="" text-right="">0.02</td>
+
+                    <td class="p-0" double-border="" nowrap="" style="padding: 0; white-space: nowrap;" text-center="">--</td>
+
+                    <td double-border="" nowrap="" text-left="">0.03</td>
+
+                    <td class="mesure" double-border="" nowrap="">
+                        tn CO<sub>2</sub>
+                        <!--bindings={
+                      "ng-reflect-ng-if": "true"
+                    }-->
+                        <span>/m<sup>2</sup></span>
+                    </td>
+
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+                    <!--bindings={
+                  "ng-reflect-ng-if": "false"
+                }-->
+
+                </tr>
+
+            </tbody>
+
+            <!--bindings={
+          "ng-reflect-ng-if": "true"
+        }-->
+            <tfoot>
+
+                <tr>
+
+                    <td colspan="2" double-border="" rowspan="3" text-right="">
+
+                        TOTAL PROJECT
+
+                    </td>
+
+                    <td text-right="">7.98</td>
+
+                    <td>MWh</td>
+
+                    <td text-right="">6.69</td>
+
+                    <td class="p-0" style="padding: 0; white-space: nowrap" text-center="">--</td>
+
+                    <td text-left="">7.60</td>
+
+                    <td class="mesure">MWh</td>
+
+                    <td colspan="4" double-border="" rowspan="3"></td>
+
+                    <td colspan="9" double-border="" rowspan="3">
+
+                        <ion-grid class="grid">
+
+                            <ion-row class="legend row">
+
+                                <ion-col class="col" col-4="" no-padding="">
+                                    <span advise-picture=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAEYAAABGAEgTm+IAAAD3ElEQVRoge2ZsZLbNhCGP9y4P5bpzDJNJqrTiO4zY/kJTnmCKE9g+QmsN4j8BJHLVKaeIHddSrpLkxnmCTYFFgJEUiQAyY5yo38GwxMJYvcHdpe7e0ZEeA64+68VuBRuRK4NNyLXhhfnLmCMKYAFMNORgxrYichjtiIikj2AFdACcqFRA7MsXTIJFMBOhbfABqiC5xWwDZ4vJ9ZaKInJ+ZcmUgc7WIzMmwGPOndSOWAZnHASmRwSGxW0TTg9R2bSbJR8qyPazFJJVKrQ49hJnCDTAk3Me2pqAjzGyjD6InCIQGORZw3MgV+UzBBaGYg+xpgF8BvwTkTWIzLc/C3wALzDmvC4nBP2ee5osc5edHa61udlwimOydkcnYgxZgb8AfyDjUYPyvONLpaCGdY05sBnYOF2zhizBH5NXA9gT/9UVsA98EpEakdkB7w+3DRmBbwHPojIMkNwqPRnLLkyUGYTuYxTtmeOwebvRaRCBfSiENYx29So1lljpWvvSIxE+O/QyegYzJkZFfYeb0aVCl4CPwNvRGQXuYM9GGNqrJnBcZCYYf1gCJW+M2oRYQABy6rFn4xz1h/17/WZp7IkL2DUkesLUL/Af33XSvQD1tm/C3YnGyKyNcY0A48Gw3QG9thDsLuO9YkmZIl+xM45kS89VE8J65GXePvd40/q5QV27UuiBl9Y/alXR6TFhr3/DRyRbzr3L2G7XxWOyF+d++VX1uNsuFL3W726hLG8pBBjTBWsX+g4lZyWDPvl4Qs+hLBmd6mEE+gc/ilW4SFoRv1pZMoTx/lcoyPEnNOowBLZ648aeDDGrLGO/rsukJo0drHQ60d8jrXD1hrV1MtBTtWcmFIA+zusY8/xH8S32Cz4b/1dJ6ndx1KvaxGpVaF74gOKs5LmxPPvgeYOr2gFvMLmLRXwg96vyYT6xhxr307xSq+xRNz8nh6aa4E94UMBUwdfS3cvO/vVNRpsllANZKyTxZXOP6kHPqsuuouvOr+zEkbdRddw2AT3CxJqcXzt3kvl8f2DtYivEN3u3WP9w33VuxElBgXWbqGThmsgeQv8JCLbqYWCEuAjfVNc6bUUkTZkOMPX1OfW6zsCc+qaK3GdlCpCzqFISzWZLYEJJr67SXkXb5pV1PxEZUpymmeJfapgw3bRMjJ21ikVRYbjzmEZMd/V+WlNwFQiKmwZkFlEKDVJmn5jPKkrf9RpTIG2ezbYCPek5hA2Flb45G+sM1liHXsRrFWJSFq0zDmRjs9suUx3siHj3wlnn0iIiJ7xFM5uRFyEyDXg2fwz9Ebk2nAjcm24Ebk2PBsi/wKPyibQO6uoPgAAAABJRU5ErkJggg=="></span>Insulation
+
+                                    recommended
+                                </ion-col>
+
+                                <ion-col class="col" col-6="" no-padding="">
+                                    <span advise-picture=""><img src="data:image/png;base64,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"></span>Maintenance
+
+                                </ion-col>
+
+                                <ion-col class="col" col-4="" no-padding="">
+                                    <span advise-picture=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAmCAYAAACGeMg8AAAACXBIWXMAAAF7AAABewHg/ioYAAACyUlEQVRYhe2Z3XHTQBDHf8fkHXcQdRB1gKgAd4DowB3gDvADBagDnAqidCDemUHpQHlnZnnQHt6sTx/GhAjG/5kbSXe3e/vf3fuyERGWXoAc2APiSgVkIkLQjotFCGENfNHPW6DR9xx4BzwC+b9ApAWugbf0xm+AFtgBGfAJuH3xtJlIqYI+hWqg1PdGiYgS6YCXN3aCyJanc6JzBDcaGbl6poz4U6j1Weiz1Wdu2rfA4+LniEcIIacn0NET/A7cXoUQikT/TkQaI7wG1vQ5+cb0u6f30l5E9iODr+hzvKD35rU2PUR51dHOJIHaU+n7Do7XZgFqk4utqW9VUSy2rQFyl+Mr+tB3VrcrdtwdsBrZSzotuZIQYBezKm4sBU9XiY2+d2pMNjBAxmFSdsDakGiMA8qRSb02pBpPZoREZfogwNZUWA81QwRmeKz1umfoiAbWI3obT2KKyN55rHIpsfMkTURjKV3UrHwVo+d0xKNIod8xUoWOOZSiSSKtpob1bIxQ7epKZ0gcOOauHVw4nhfes1l0pDowpv4qYby1JUmk4GlItxznbWHaMxe9xpFqooedfGz3zohRiU4oOcxhX6ohIltl/ysvR3K6sN4fWACqEXm7IOTOBjFtk+VoZxeRbQhhA7wGPtj9JNG3DiE8cNh5Izr6Ve9BRMoR+U7HulMdcawa+Ah8Br4NyVsMHVFKNaKaoaMG3ru6gt4RmylhdQb00fH4ISL1DBt4NVB/w2EHnUKbqLNnobnIE3XZXOEjIubIMphSM1AATB05HFIRmY2hiMB5RAC+nil/EsaInIvuGXUfIUUklauLR4rIWbn6UnjO1PqruBBZGi5EloYLkaXhQmRpuBBZGv4bIvGqm5kLVfY7itxvyPHHi1OwMjpOPoFHIu85vnefijv3fX+i/E1Cx2xc0f+llcLcG2JF+m5+SkSGbGjnKvgJ6O/ZEoLzC/sAAAAASUVORK5CYII="></span>Surface unknown
+
+                                </ion-col>
+
+
+
+                                <ion-col class="col" col-6="" no-padding="">
+                                    <span advise-picture=""><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAEUAAABFAH7OeD/AAABiklEQVRoge2ay3GDMBBA3ya52x2EDqIOQgkuwdfcXILTgTuIS3EJpIPklqNTgXKATIgHzAqEWRi9Gc1g9EEPFq3GtnjvsYKIHABXfdx57wt1Z++9iQIcAV8rZ8Cp+08t0CIRLGNR4txHxqKEA7ahMuYkavVBMlNJqCYZsgCYlQiVMS0RImNeQiszCwmNzBQSHtgBObAOGMdVfYrGJXtkiU2DRL0UGpmWm/FP5o5xcR31T5RPp4u3jvrVg24+vTlSyqwvzjtg1XPMd8pwqlPc5GVvCJUTf2GxV7Svh1He1Gbs0LoZScQaScQaScQa0RKiiDjKLYmGLNZ1f4kiUkmc6J+tBxMrtDZMKAERQ6vGJ+Ue6xpb4DHmRccQ+fDe7681EJGcyCKLWbWSiDUWI9L6sle54aAcJ4symwE0iohIxsQJLpS20MqYkQTo88hrR30OPA+byjBUIooEt2dikcWsWknEGknEGknEGknEGosRgfJHl8v/f8ypnAEn1cGsdroNfN8DX+i/IbTKyw8XIJrMHtlZUgAAAABJRU5ErkJggg=="></span>Increase
+
+                                    performance or thickness
+                                </ion-col>
+
+                            </ion-row>
+
+                        </ion-grid>
+
+                    </td>
+
+                </tr>
+
+
+
+                <tr>
+
+                    <td text-right="">399</td>
+
+                    <td class="mesure">€</td>
+
+                    <td text-right="">335</td>
+
+                    <td class="p-0" style="padding: 0; white-space: nowrap;" text-center="">--</td>
+
+                    <td text-left="">380</td>
+
+                    <td class="mesure">€</td>
+
+                </tr>
+
+
+
+                <tr>
+
+                    <td double-border="" text-right="">1.60</td>
+
+                    <td class="mesure" double-border="">tn CO<sub>2</sub></td>
+
+                    <td double-border="" text-right="">1.34</td>
+
+                    <td class="p-0" double-border="" style="padding: 0; white-space: nowrap;" text-center="">--</td>
+
+                    <td double-border="" text-left="">1.52</td>
+
+                    <td class="mesure" double-border="">tn CO<sub>2</sub></td>
+
+                </tr>
+
+
+
+            </tfoot>
+
+        </table>
+    </page-summary>
+</body>
+</html>
